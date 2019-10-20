@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Nelson Bighetti
+name: Thomas Kealy
 
 # Username (this should match the folder name)
 authors:
@@ -10,32 +10,32 @@ authors:
 superuser: true
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: Data Scientist
 
 # Organizations/Affiliations
 organizations:
-- name: Stanford University
+- name: Imperial College
+- name: Univeristy of Bristol
+- name: HelloFresh
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: I am a Data Scientist in Berlin.
 
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Bayesian Models
+- Time Series
+- Information Theory
 
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
+  - course: PhD in Communications
+    institution: University of Bristol
+    year: 2017
+  - course: BSc Physics with Theoretical Physics
+    institution: Imperial College
     year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -47,13 +47,10 @@ social:
   link: '#contact'  # For a direct email link, use "mailto:test@example.org".
 - icon: twitter
   icon_pack: fab
-  link: https://twitter.com/GeorgeCushen
-- icon: google-scholar
-  icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://twitter.com/ThomasKealy
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/TomKealy
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
 # - icon: cv
@@ -70,6 +67,4 @@ user_groups:
 - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+Thomas Kealy is a Data Scientist in Berlin, Germany. He previously built text analytics pipelines for the UKHO in the UK, and completed a PhD in Communications at the University of Bristol. His research interests were in Group Testing, Compressive Sensing, and Distributed variations of ADMM.
