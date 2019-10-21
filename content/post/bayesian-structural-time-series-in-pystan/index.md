@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Structural Time Series"
+title: "Bayesian Structural Time Series in Pystan"
 subtitle: ""
 summary: ""
 authors: []
 tags: []
 categories: []
-date: 2019-10-21T09:33:12+02:00
-lastmod: 2019-10-21T09:33:12+02:00
+date: 2019-10-21T09:51:55+02:00
+lastmod: 2019-10-21T09:51:55+02:00
 featured: false
 draft: false
 markup: mmark
