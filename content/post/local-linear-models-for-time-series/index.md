@@ -36,7 +36,7 @@ $$ x_t \sim N\left(x_{t-1} + v_{t-1}, \sigma_x^2\right) $$
 
 $$ y_t \sim N\left(x_t, \sigma_y^2\right) $$
 
-Where $\sigma_x^2$ is the observation error, $\sigma_y^2$ is the level disturbance, and $\sigma_v^2$ is the slope distrubance
+Where \\(\sigma_x^2\\) is the observation error, $\sigma_y^2$ is the level disturbance, and $\sigma_v^2$ is the slope distrubance
 
 We will model this in pystan, using the air passengers dataset.
 
@@ -146,7 +146,7 @@ To predict future points, we have to include the extra points in the original st
 stan_code = """data {
     int N;
     vector[N] X;
-    int pred_num; 
+    int pred_num;
 }
 
 parameters {
@@ -162,7 +162,7 @@ model {
     u[2:N] ~ normal(u[1:N-1] + v[1:N-1], s_u);
     X ~ normal(u, s_x);
 }
-    
+
 generated quantities {
     vector[N + pred_num] u_pred;
     vector[pred_num] x_pred;
