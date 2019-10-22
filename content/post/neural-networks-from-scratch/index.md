@@ -29,23 +29,23 @@ projects: []
 ---
 It's useful sometimes to write simple versions of complex things, so that you understand them. In this post we write a simple neural network from scratch.
 
-In a normal classification problem, we have some labels \(y\) and inputs \(x\) and we would like to learn a linear function 
+In a normal classification problem, we have some labels \(y\) and inputs \(x\) and we would like to learn a linear function
 
 
-$$ y = W x $$ 
+$$ y = W x $$
 
-to separate the classes. Neural networks add an (or many!) extra layer 
+to separate the classes. Neural networks add an (or many!) extra layer
 
 
 $$ h = \mathrm{sigmoid}(M x) $$
 
-between the inputs and output so that it produces is
+between the inputs and output so that what the network produces is
 
 $$ y = W h $$
 
-Thus we are esentially fitting a linear classifier on the basis expansion \(\mathrm{sigmoid}(M x)\), the difference being that w efit the basis expansion, as well as the linear classifier. That is the Network learns a data dependent basis on which to clssify.
+Thus we are esentially fitting a linear classifier on the basis expansion \( \mathrm{sigmoid}(M x) \), the difference being that we fit the basis expansion, as well as the linear classifier. That is, the Network learns a data dependent basis on which to clssify.
 
-Enough with the maths, lets do some coding.
+Enough with the maths, lets do some coding!
 
 
 ```python
@@ -61,24 +61,24 @@ Neural networks are made up of Layers, the simplest just returns what it recieve
 class Layer(object):
     """
     A building block. Each layer is capable of performing two things:
-    
+
     - Process input to get output:           output = layer.forward(input)
-    
+
     - Propagate gradients through itself:    grad_input = layer.backward(input, grad_output)
-    
+
     Some layers also have learnable parameters which they update during layer.backward.
     """
-    
+
     def __init__(self):
         """This is an identity layer so it doesn't need to do anything."""
         pass
-    
+
     def forward(self, input):
         """
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         Returns
         ----------
         output: Tensor of shape [batch_size, num_output_units]
@@ -89,24 +89,24 @@ class Layer(object):
     def backward(self, input, grad_output):
         """
         Performs a backpropagation step through the layer, with respect to the given input.
-        
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         grad_output : Tensor of shape  [batch_size, num_input_units]
-        
+
         Returns
         ----------
-        
+
         grad_output : Tensor of shape [batch_size, num_output_units]
-        
+
         """
-        
+
         num_units = input.shape[1]
-        
+
         d_layer_d_input = np.eye(num_units)
-        
+
         return np.dot(grad_output, d_layer_d_input) # chain rule
 ```
 
@@ -118,36 +118,36 @@ class ReLU(Layer):
     def __init__(self):
         """ReLU layer simply applies elementwise rectified linear unit to all inputs"""
         pass
-    
+
     def forward(self, input):
         """
         Apply elementwise ReLU to [batch, input_units] matrix
-        
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         Returns
         ----------
         output: Tensor of shape [batch_size, num_output_units]
 
         """
         return np.maximum(0, input)
-        
-    
+
+
     def backward(self, input, grad_output):
         """
         Compute gradient of loss w.r.t. ReLU input
-                
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         grad_output : Tensor of shape  [batch_size, num_input_units]
-        
+
         Returns
         ----------
-        
+
         grad_output : Tensor of shape [batch_size, num_output_units]
         """
         relu_grad = input > 0
@@ -160,36 +160,36 @@ class Sigmoid(Layer):
     def __init__(self):
         """Sigmoid layer simply applies elementwise sigmoid unit to all inputs"""
         pass
-    
+
     def forward(self, input):
         """
         Apply elementwise ReLU to [batch, input_units] matrix
-        
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         Returns
         ----------
         output: Tensor of shape [batch_size, num_output_units]
 
         """
         return np.tanh(input)
-        
-    
+
+
     def backward(self, input, grad_output):
         """
         Compute gradient of loss w.r.t. ReLU input
-                
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         grad_output : Tensor of shape  [batch_size, num_input_units]
-        
+
         Returns
         ----------
-        
+
         grad_output : Tensor of shape [batch_size, num_output_units]
         """
         sigmoid_grad = 1 - np.tanh(input)*np.tanh(input)
@@ -254,9 +254,9 @@ The next type of layer we will implement will be a Dense or Fully Connected laye
 A dense layer applies affine transformation. In a vectorized form, it can be described as:
 $$f(X)= W \cdot X + \vec b $$
 
-Where 
+Where
 * X is an object-feature matrix of shape [batch_size, num_features],
-* W is a weight matrix [num_features, num_outputs] 
+* W is a weight matrix [num_features, num_outputs]
 * and b is a vector of num_outputs biases.
 
 Both W and b are initialized during layer creation and updated each time backward is called.
@@ -268,49 +268,49 @@ class Dense(Layer):
         """
         A dense layer is a layer which performs a learned affine transformation:
         f(x) = <W*x> + b
-        
+
         Weights initialised by Xavier initialisation: http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf
-        
+
         """
         self.learning_rate = learning_rate
         self.weights = np.random.randn(input_units, output_units) * np.sqrt(2.0/(input_units+output_units))
         self.biases = np.zeros(output_units)
-        
+
     def forward(self,input):
         """
         Perform an affine transformation:
         f(x) = <W*x> + b
-        
+
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         Returns
         ----------
         output: Tensor of shape [batch_size, num_output_units]
         """
         return input @ self.weights + self.biases
-    
+
     def backward(self, input, grad_output):  
         """
         Parameters
         ----------
         input : Tensor of shape [batch_size, num_input_units]
-        
+
         Returns
         ----------
         grad_output: Tensor of shape [batch_size, num_output_units]
         """
         grad_input = grad_output @ self.weights.T
-        
+
         grad_weights = (input.T @ grad_output)
         grad_biases = grad_output.sum(axis=0)
-  
+
         assert grad_weights.shape == self.weights.shape and grad_biases.shape == self.biases.shape
-    
+
         self.weights = self.weights - self.learning_rate * grad_weights
         self.biases = self.biases - self.learning_rate * grad_biases
-        
+
         return grad_input
 ```
 
@@ -355,7 +355,7 @@ def compute_out_given_wb(w,b):
     l.biases = np.array(b)
     x = np.linspace(-1,1,10*32).reshape([10,32])
     return l.forward(x)
-    
+
 def compute_grad_by_params(w,b):
     l = Dense(32,64,learning_rate=1)
     l.weights = np.array(w)
@@ -363,7 +363,7 @@ def compute_grad_by_params(w,b):
     x = np.linspace(-1,1,10*32).reshape([10,32])
     l.backward(x,np.ones([10,64]) / 10.)
     return w - l.weights, b - l.biases
-    
+
 w,b = np.random.randn(32,64), np.linspace(-1,1,64)
 
 numeric_dw = eval_numerical_gradient(lambda w: compute_out_given_wb(w,b).mean(0).sum(),w )
@@ -381,18 +381,18 @@ We will optimise the following loss, which is a more numerically stable version 
 def softmax_crossentropy_with_logits(logits, reference_answers):
     """Compute crossentropy from logits[batch,n_classes] and ids of correct answers"""
     logits_for_answers = logits[np.arange(len(logits)),reference_answers]
-    
+
     xentropy = - logits_for_answers + np.log(np.sum(np.exp(logits),axis=-1))
-    
+
     return xentropy
 
 def grad_softmax_crossentropy_with_logits(logits, reference_answers):
     """Compute crossentropy gradient from logits[batch,n_classes] and ids of correct answers"""
     ones_for_answers = np.zeros_like(logits)
     ones_for_answers[np.arange(len(logits)),reference_answers] = 1
-    
+
     softmax = np.exp(logits) / np.exp(logits).sum(axis=-1,keepdims=True)
-    
+
     return (- ones_for_answers + softmax) / logits.shape[0]
 ```
 
@@ -453,11 +453,11 @@ class Network(object):
         network.append(ReLU())
         network.append(Dense(200,10))
         self.network = network
-    
+
     def forward(self, X):
         """
         comppute activations of all network layers by applying them sequentially.
-        Return a list of activations for each layer. 
+        Return a list of activations for each layer.
         Make sure last activation corresponds to network logits.
         """
         activations = []
@@ -466,7 +466,7 @@ class Network(object):
         for layer in self.network:
             activations.append(layer.forward(input))
             input = activations[-1]
-        
+
         assert len(activations) == len(self.network)
         return activations
 
@@ -482,24 +482,24 @@ class Network(object):
         Train your network on a given batch of X and y.
         You first need to run forward to get all layer activations.
         Then you can run layer.backward going from last to first layer.
-    
+
         After you called backward for all layers, all Dense layers have already made one gradient step.
         """
-    
+
         # Get the layer activations
         layer_activations = self.forward(X)
         layer_inputs = [X]+layer_activations
         logits = layer_activations[-1]
-    
+
         # Compute the loss and the initial gradient
         loss = softmax_crossentropy_with_logits(logits,y)
         loss_grad = grad_softmax_crossentropy_with_logits(logits,y)
 
         for layer_i in range(len(self.network))[::-1]:
             layer = self.network[layer_i]
-        
-            loss_grad = layer.backward(layer_inputs[layer_i],loss_grad) 
-            
+
+            loss_grad = layer.backward(layer_inputs[layer_i],loss_grad)
+
         return np.mean(loss)
 ```
 
@@ -534,10 +534,10 @@ for epoch in range(25):
 
     for x_batch,y_batch in iterate_minibatches(X_train,y_train,batchsize=32,shuffle=True):
         network.fit(x_batch,y_batch)
-    
+
     train_log.append(np.mean(network.predict(X_train)==y_train))
     val_log.append(np.mean(network.predict(X_val)==y_val))
-    
+
     clear_output()
     print("Epoch",epoch)
     print("Train accuracy:",train_log[-1])
