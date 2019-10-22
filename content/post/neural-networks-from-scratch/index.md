@@ -43,7 +43,7 @@ between the inputs and output so that what the network produces is
 
 $$ y = W h $$
 
-Thus we are esentially fitting a linear classifier on the basis expansion \( \mathrm{sigmoid}(M x) \), the difference being that we fit the basis expansion, as well as the linear classifier. That is, the Network learns a data dependent basis on which to clssify.
+Thus we are esentially fitting a linear classifier on the basis expansion $\mathrm{sigmoid}(M x)$, the difference being that we fit the basis expansion, as well as the linear classifier. That is, the Network learns a data dependent basis on which to clssify.
 
 Enough with the maths, lets do some coding!
 
