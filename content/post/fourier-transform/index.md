@@ -53,7 +53,7 @@ $$ \int_0^{2\pi} cos(x) sin(x) dx  = 0 $$
 
 Because of these (admittedly quite arbitrary properties) \\( sin \\) and \\( cos \\) can play the role for functions that \\( e_1 \\) and \\( e_2 \\) played for vectors. This was Joseph Fourier's insight, and there's not a part of Science/Engineering that has been left untouched (mainly because if you're out of ideas about what to do in a data analysis, taking a Fourier Transform will seldom be  a bad one).
 
-In the rest of this post, we'll consider an effcient way of computing a discrete version of the Fourier Tansform
+In the rest of this post, we'll consider an effcient way of computing a discrete version of the Fourier Transform
 
 If we have a vector \\( x  \in \mathrm{R}^N \\) which we can write it's Fourier Transform as:
 
@@ -119,7 +119,7 @@ $$ X_{k} = \sum_{m=0}^{N/2-1} x_{2m} e^{-i2\pi (2m)n/N} + \sum_{m=0}^{N/2-1} x_{
 
 $$ X_{k} = \sum_{m=0}^{N/2-1} x_{2m} e^{-i2\pi (2m)n/N} + e^{-i 2\pi k/N} \sum_{m=0}^{N/2-1} x_{2m+1} e^{-i2\pi (2m)n/N} $$
 
-What that these two lines show, is that we can split an \\( N \\) length FT into two \\( N/2 \)) length Fts, with the second multiplied by some factor. We need not stop there though, as we can continue this splitting trick all the way down to \\( m = 1 \\), which is what this graphic shows
+What that these two lines show, is that we can split an \\( N \\) length FT into two \\( N/2\\) length FTs, with the second multiplied by some factor. We need not stop there though, as we can continue this splitting trick all the way down to \\( m = 1 \\), which is what this graphic shows
 
 <img src="radix2fft.png">
 
