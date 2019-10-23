@@ -255,9 +255,9 @@ A dense layer applies affine transformation. In a vectorized form, it can be des
 $$f(X)= W \cdot X + \vec b $$
 
 Where
-* X is an object-feature matrix of shape [batch_size, num_features],
-* W is a weight matrix [num_features, num_outputs]
-* and b is a vector of num_outputs biases.
+*X is an object-feature matrix of shape [batch_size, num_features],
+*W is a weight matrix [num_features, num_outputs]
+*and b is a vector of num_outputs biases.
 
 Both W and b are initialized during layer creation and updated each time backward is called.
 
