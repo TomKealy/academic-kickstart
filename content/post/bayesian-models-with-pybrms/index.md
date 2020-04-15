@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Model Selection With Gams"
+title: "Bayesian Models With Pybrms"
 subtitle: ""
 summary: ""
 authors: []
 tags: []
 categories: []
-date: 2019-10-26T13:24:54+02:00
-lastmod: 2019-10-26T13:24:54+02:00
+date: 2020-04-06T20:00:16+02:00
+lastmod: 2020-04-06T20:00:16+02:00
 featured: false
 draft: false
 
